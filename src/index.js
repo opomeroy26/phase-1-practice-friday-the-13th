@@ -23,7 +23,12 @@ function renderMovieArr(movieArr){
 function renderMovieObj(movieObj) {
     const navImage = document.createElement("img")
     navImage.src = movieObj.image 
+    navImage.addEventListener("click", handleClick)
     nav.appendChild(navImage)
+
+    function handleClick(){
+        renderDetail(movieObj)
+    }
 }
 
 function renderDetail(movieObj){
