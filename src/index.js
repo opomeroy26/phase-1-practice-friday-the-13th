@@ -1,5 +1,6 @@
 //GLOBAL VARIABLE
 const URL = "http://localhost:3000/movies"
+let selectedMovie;
 
 //DOM SELECTORS
 const nav = document.querySelector("#movie-list")
@@ -8,6 +9,7 @@ const drops = document.querySelector("#amount")
 
 
 // LISTENERS
+watchedBtn.addEventListener("click", toggleWatched)
 
 //Fetch
 function getAllMovies(){
@@ -32,6 +34,7 @@ function renderMovieObj(movieObj) {
 }
 
 function renderDetail(movieObj){
+    selectedMovie = movieObj
     const title = document.querySelector("#title")
     const year = document.querySelector("#year-released")
     const description = document.querySelector("#description")
@@ -41,13 +44,20 @@ function renderDetail(movieObj){
     year.textContent = movieObj.release_year
     description.textContent = movieObj.description
     let watchVal;
-    movieObj.watched ? watchValu = "Watched" : watchVal = "Unwatched"
+    movieObj.watched ? watchVal = "Watched" : watchVal = "Unwatched"
     watchedBtn.textContent = watchVal
     drops.textContent = movieObj.blood_amount
 
 }
 
 // HANDLERS
+function toggleWatched() {
+    selectedMovie.watched = !selectedMovie.watched
+    console.log(selectedMovie.watched)
+    let watchVal;
+    selectedMovie.watched ? watchVal = "Watched" : watchVal = "Unwatched"
+    watchedBtn.textContent = watchVal
+}
 
 // INITIALIZER
 getAllMovies().then(movieArr => {renderMovieArr(movieArr)
