@@ -6,10 +6,13 @@ let selectedMovie;
 const nav = document.querySelector("#movie-list")
 const watchedBtn = document.querySelector("#watched")
 const drops = document.querySelector("#amount")
+const form = document.querySelector("#blood-form")
+
 
 
 // LISTENERS
 watchedBtn.addEventListener("click", toggleWatched)
+form.addEventListener("submit", (e) => handleForm(e))
 
 //Fetch
 function getAllMovies(){
@@ -58,6 +61,19 @@ function toggleWatched() {
     selectedMovie.watched ? watchVal = "Watched" : watchVal = "Unwatched"
     watchedBtn.textContent = watchVal
 }
+
+function handleForm(e) {
+    e.preventDefault()
+    //console.log("clicked")
+    const bloodInput = e.target["blood-amount"].value
+    //console.log(bloodInput)
+    const amount = parseInt(bloodInput)
+    selectedMovie.blood_amount += amount
+    //console.log(amount)
+    drops.textContent = selectedMovie.blood_amount
+    form.reset()
+}
+
 
 // INITIALIZER
 getAllMovies().then(movieArr => {renderMovieArr(movieArr)
